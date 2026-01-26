@@ -12,12 +12,11 @@ An extension for [pi-coding-agent](https://github.com/mariozechner/pi-coding-age
 
 ## Installation
 
-1.  Clone this repository into your pi extensions folder (or symlink it):
+1.  Download or clone this repository into your pi extensions folder:
     ```bash
     cd ~/.pi/agent/extensions
-    git clone https://github.com/your-username/pi-antigravity-quota.git antigravity-quota
+    git clone https://github.com/ditfetzt/pi-antigravity-quota.git antigravity-quota
     ```
-    *Note: If you want to develop it locally, clone it elsewhere and symlink it.*
 
 2.  Restart `pi`.
 

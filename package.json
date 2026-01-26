@@ -15,7 +15,7 @@
     "quota",
     "google-cloud"
   ],
-  "author": "Maxim",
+  "author": "Mæxim",
   "license": "MIT",
   "peerDependencies": {
     "@mariozechner/pi-coding-agent": "*"
