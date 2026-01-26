@@ -1,0 +1,28 @@
+{
+  "name": "pi-antigravity-quota",
+  "version": "1.0.0",
+  "description": "Pi extension to check Google Cloud Code (Antigravity) model quotas.",
+  "main": "index.ts",
+  "type": "module",
+  "scripts": {
+    "build": "tsc"
+  },
+  "keywords": [
+    "pi",
+    "extension",
+    "antigravity",
+    "gemini",
+    "quota",
+    "google-cloud"
+  ],
+  "author": "Maxim",
+  "license": "MIT",
+  "peerDependencies": {
+    "@mariozechner/pi-coding-agent": "*"
+  },
+  "devDependencies": {
+    "@mariozechner/pi-coding-agent": "^0.3.0",
+    "typescript": "^5.3.0",
+    "@types/node": "^20.10.0"
+  }
+}
