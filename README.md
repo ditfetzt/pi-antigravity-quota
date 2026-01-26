@@ -2,7 +2,7 @@
 
 An extension for [pi-coding-agent](https://github.com/mariozechner/pi-coding-agent) that displays the remaining quota for your Google Cloud Code (Antigravity) subscription models.
 
-![Screenshot](screenshot.png)
+<img src="banner.jpg" width="100%" alt="Antigravity Quota Banner">
 
 ## Features
 
