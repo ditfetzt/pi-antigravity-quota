@@ -165,13 +165,7 @@ function formatRelativeTime(isoString?: string): string {
 
 function formatLimit(limit?: string): string {
   if (!limit) return "-";
-  // If limit is very large, format with k? e.g. 1000 -> 1k? 
-  // For now, keep as is, it's usually small integers.
   return limit;
-}
-
-function pad(str: string, len: number): string {
-  return str.padEnd(len);
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -247,24 +241,54 @@ export default function antigravityQuota(pi: ExtensionAPI) {
 
         // Calculate columns widths
         const all = processedModels;
-        const maxNameLen = Math.max(10, ...all.map(m => m.name.length));
-        const maxLimitLen = Math.max(5, ...all.map(m => m.limit.length));
-        const maxResetLen = Math.max(8, ...all.map(m => m.resetTime.length));
         
+        // Header Texts
+        const HEADER_MODEL = "Model";
+        const HEADER_USAGE = "Usage";
+        const HEADER_LIMIT = "Limit";
+        const HEADER_RESET = "Resets";
+
+        // Calculate Max Widths
+        // Min width for Model is length of "Model"
+        const maxNameLen = Math.max(HEADER_MODEL.length, ...all.map(m => m.name.length));
+        
+        // Usage column width: Bar (10) + Space (1) + Percent (4) = 15 chars
+        // We ensure header "Usage" (5) fits.
+        const USAGE_COL_WIDTH = 15; 
+        
+        const maxLimitLen = Math.max(HEADER_LIMIT.length, ...all.map(m => m.limit.length));
+        const maxResetLen = Math.max(HEADER_RESET.length, ...all.map(m => m.resetTime.length));
+        
+        // Spacing between columns
+        const GAP = "   ";
+        
+        // Total width for separator line
+        // Icon (2) + Space (1) + Name + Gap + Usage + Gap + Limit + Gap + Reset
+        // Note: Icon is 2 chars wide usually? Emoji is 2 bytes but often rendered as 2 chars width in terminal? 
+        // Using 2 chars for icon space + 1 char space.
+        const totalWidth = 3 + maxNameLen + GAP.length + USAGE_COL_WIDTH + GAP.length + maxLimitLen + GAP.length + maxResetLen;
+        
+        const separator = `${ANSI_DIM}${"─".repeat(totalWidth)}${ANSI_RESET}`;
+
         const lines: string[] = [];
         
-        // Header
+        // Title
         lines.push(`${ANSI_BOLD}⚡ Antigravity Quota Status${ANSI_RESET}`);
-        lines.push(`${ANSI_DIM}──────────────────────────────────────────────────────────${ANSI_RESET}`);
+        lines.push(separator);
+        
+        // Header Row
+        // Icon column is empty in header (3 chars)
         lines.push(
-          `${ANSI_DIM}   ${pad("Model", maxNameLen)}   ${pad("Usage", 17)}   ${pad("Limit", maxLimitLen)}   ${pad("Resets In", maxResetLen)}${ANSI_RESET}`
+          `${ANSI_DIM}   ` +
+          `${HEADER_MODEL.padEnd(maxNameLen)}${GAP}` + 
+          `${HEADER_USAGE.padEnd(USAGE_COL_WIDTH)}${GAP}` +
+          `${HEADER_LIMIT.padStart(maxLimitLen)}${GAP}` + // Right align limit
+          `${HEADER_RESET.padStart(maxResetLen)}${ANSI_RESET}` // Right align reset time
         );
-        lines.push(`${ANSI_DIM}──────────────────────────────────────────────────────────${ANSI_RESET}`);
+        lines.push(separator);
 
         const renderGroup = (groupName: string, models: ModelDisplay[]) => {
           if (models.length === 0) return;
-          
-          // lines.push(`${ANSI_BOLD}${ANSI_BLUE}${groupName}${ANSI_RESET}`); // Optional group header
           
           for (const m of models) {
             const bar = getProgressBar(m.remainingPercent, 10);
@@ -273,14 +297,25 @@ export default function antigravityQuota(pi: ExtensionAPI) {
             let pctColor = ANSI_GREEN;
             if (m.remainingPercent <= 10) pctColor = ANSI_RED;
             else if (m.remainingPercent <= 30) pctColor = ANSI_YELLOW;
+            
             const pctText = `${pctColor}${m.remainingPercent.toString().padStart(3)}%${ANSI_RESET}`;
-
+            
+            const usageContent = `${bar} ${pctText}`;
+            
             // Reset time color
             let resetColor = ANSI_DIM;
             if (m.resetTime !== "-" && m.resetTime !== "Ready") resetColor = ANSI_BLUE;
             
+            // Usage column needs manual padding because it contains ANSI codes
+            // Visual length is fixed at 15 chars: 10 (bar) + 1 (space) + 4 (percent)
+            // USAGE_COL_WIDTH is 15. So padding is 0.
+            
             lines.push(
-              `${m.icon} ${pad(m.name, maxNameLen)}   ${bar} ${pctText}   ${pad(m.limit, maxLimitLen)}   ${resetColor}${pad(m.resetTime, maxResetLen)}${ANSI_RESET}`
+              `${m.icon} ` +
+              `${m.name.padEnd(maxNameLen)}${GAP}` +
+              `${usageContent}${GAP}` +
+              `${m.limit.padStart(maxLimitLen)}${GAP}` +
+              `${resetColor}${m.resetTime.padStart(maxResetLen)}${ANSI_RESET}`
             );
           }
         };
@@ -291,7 +326,7 @@ export default function antigravityQuota(pi: ExtensionAPI) {
         if ((groups["Claude"].length || groups["Gemini"].length) && groups["Other"].length) lines.push(""); // Spacer
         renderGroup("Other", groups["Other"]);
 
-        lines.push(`${ANSI_DIM}──────────────────────────────────────────────────────────${ANSI_RESET}`);
+        lines.push(separator);
         
         const message = lines.join("\n");
         ctx.ui.notify(message, "info");
