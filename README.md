@@ -1,14 +1,16 @@
-# pi-antigravity-quota
+<p align="center">
+  <img src="banner.webp" alt="pi-antigravity-quota" width="100%">
+</p>
+
+# Pi Antigravity Quota
 
 An extension for [pi-coding-agent](https://github.com/mariozechner/pi-coding-agent) that displays the remaining quota for your Google Cloud Code (Antigravity) subscription models.
 
-<img src="banner.jpg" width="100%" alt="Antigravity Quota Banner">
-
 ## Features
 
-- **Status Command**: Run `/quota` or `/antigravity` to see a beautiful, formatted list of all your available models and their remaining quota.
-- **Visual Indicators**: Uses color-coded progress bars (Green/Yellow/Red) and icons to quickly show status.
-- **Smart Filtering**: Automatically hides internal or deprecated models.
+- **Status Command**: Run `/quota` to see a beautiful, formatted list of all your available models and their remaining quota.
+- **Visual Indicators**: Color-coded progress bars (Green/Yellow/Red) and icons to quickly show status.
+- **Smart Filtering**: Automatically hides internal or deprecated models, keeping the dashboard clean.
 
 ## Installation
 
@@ -23,7 +25,6 @@ An extension for [pi-coding-agent](https://github.com/mariozechner/pi-coding-age
 ## Usage
 
 -   **`/quota`**: Displays the quota dashboard.
--   **`/antigravity`**: Alias for `/quota`.
 
 ## Configuration
 

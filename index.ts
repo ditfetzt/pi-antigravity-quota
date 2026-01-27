@@ -223,12 +223,5 @@ export default function antigravityQuota(pi: ExtensionAPI) {
     },
   });
 
-  // Also register 'antigravity' alias
-  pi.registerCommand("antigravity", {
-    description: "Alias for /quota",
-    handler: async (args, ctx) => {
-      // @ts-ignore
-      await pi.commands.get("quota")?.handler(args, ctx);
-    }
-  });
+
 }
