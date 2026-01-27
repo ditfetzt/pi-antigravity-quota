@@ -19,7 +19,7 @@ An extension for [pi-coding-agent](https://github.com/mariozechner/pi-coding-age
 1.  Download or clone this repository into your pi extensions folder:
     ```bash
     cd ~/.pi/agent/extensions
-    git clone https://github.com/ditfetzt/pi-antigravity-quota.git antigravity-quota
+    git clone https://github.com/ditfetzt/pi-antigravity-quota.git
     ```
 
 2.  Restart `pi`.
