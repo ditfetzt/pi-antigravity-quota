@@ -8,9 +8,11 @@ An extension for [pi-coding-agent](https://github.com/mariozechner/pi-coding-age
 
 ## Features
 
-- **Status Command**: Run `/quota` to see a beautiful, formatted list of all your available models and their remaining quota.
-- **Visual Indicators**: Color-coded progress bars (Green/Yellow/Red) and icons to quickly show status.
-- **Smart Filtering**: Automatically hides internal or deprecated models, keeping the dashboard clean.
+- **Beautiful Dashboard**: Run `/quota` to see a formatted list of all your available models.
+- **Detailed Insights**: View usage percentage, remaining limit count, and time until reset.
+- **Visual Indicators**: Color-coded progress bars (Green/Yellow/Red) and icons.
+- **Smart Filtering**: Automatically hides internal or deprecated models.
+- **Grouped Display**: Models are categorized by family (Claude, Gemini) for easy scanning.
 
 ## Installation
 
