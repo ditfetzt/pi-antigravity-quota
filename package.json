@@ -18,6 +18,7 @@
   "keywords": [
     "pi-package",
     "pi",
+    "pi-agent",
     "extension",
     "antigravity",
     "gemini",
@@ -26,6 +27,21 @@
   ],
   "author": "Mæxim",
   "license": "MIT",
+  "pi": {
+    "extensions": [
+      "extensions/index.ts"
+    ],
+    "image": "banner.webp"
+  },
+  "files": [
+    "dist",
+    "extensions",
+    "banner.webp",
+    "quota_display.webp",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
   "peerDependencies": {
     "@mariozechner/pi-coding-agent": "*"
   },
