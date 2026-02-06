@@ -5,6 +5,7 @@
   "type": "module",
   "main": "extensions/index.ts",
   "scripts": {
+    "prebuild": "rm -rf dist",
     "build": "tsc"
   },
   "repository": {
