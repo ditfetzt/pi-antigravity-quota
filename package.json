@@ -1,13 +1,22 @@
 {
   "name": "pi-antigravity-quota",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Pi extension to check Google Cloud Code (Antigravity) model quotas.",
-  "main": "index.ts",
   "type": "module",
+  "main": "extensions/quota.ts",
   "scripts": {
     "build": "tsc"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ditfetzt/pi-antigravity-quota.git"
+  },
+  "homepage": "https://github.com/ditfetzt/pi-antigravity-quota#readme",
+  "bugs": {
+    "url": "https://github.com/ditfetzt/pi-antigravity-quota/issues"
+  },
   "keywords": [
+    "pi-package",
     "pi",
     "extension",
     "antigravity",
@@ -21,7 +30,7 @@
     "@mariozechner/pi-coding-agent": "*"
   },
   "devDependencies": {
-    "@mariozechner/pi-coding-agent": "^0.3.0",
+    "@mariozechner/pi-coding-agent": "^0.52.6",
     "typescript": "^5.3.0",
     "@types/node": "^20.10.0"
   }

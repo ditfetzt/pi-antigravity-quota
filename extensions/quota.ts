@@ -38,7 +38,6 @@ interface ModelDisplay {
   name: string;
   icon: string;
   remainingPercent: number;
-  limit: string;
   resetTime: string;
   rawResetTime?: number; // for sorting if needed
 }
@@ -214,7 +213,6 @@ export default function antigravityQuota(pi: ExtensionAPI) {
               name,
               icon: getModelIcon(name),
               remainingPercent,
-              limit: formatLimit(m.quotaInfo?.limit),
               resetTime: formatRelativeTime(m.quotaInfo?.resetTime),
               rawResetTime: m.quotaInfo?.resetTime ? new Date(m.quotaInfo.resetTime).getTime() : 0
             };
@@ -245,7 +243,6 @@ export default function antigravityQuota(pi: ExtensionAPI) {
         // Header Texts
         const HEADER_MODEL = "Model";
         const HEADER_USAGE = "Usage";
-        const HEADER_LIMIT = "Limit";
         const HEADER_RESET = "Resets";
 
         // Calculate Max Widths
@@ -256,17 +253,16 @@ export default function antigravityQuota(pi: ExtensionAPI) {
         // We ensure header "Usage" (5) fits.
         const USAGE_COL_WIDTH = 15; 
         
-        const maxLimitLen = Math.max(HEADER_LIMIT.length, ...all.map(m => m.limit.length));
         const maxResetLen = Math.max(HEADER_RESET.length, ...all.map(m => m.resetTime.length));
         
         // Spacing between columns
         const GAP = "   ";
         
         // Total width for separator line
-        // Icon (2) + Space (1) + Name + Gap + Usage + Gap + Limit + Gap + Reset
+        // Icon (2) + Space (1) + Name + Gap + Usage + Gap + Reset
         // Note: Icon is 2 chars wide usually? Emoji is 2 bytes but often rendered as 2 chars width in terminal? 
         // Using 2 chars for icon space + 1 char space.
-        const totalWidth = 3 + maxNameLen + GAP.length + USAGE_COL_WIDTH + GAP.length + maxLimitLen + GAP.length + maxResetLen;
+        const totalWidth = 3 + maxNameLen + GAP.length + USAGE_COL_WIDTH + GAP.length + maxResetLen;
         
         const separator = `${ANSI_DIM}${"─".repeat(totalWidth)}${ANSI_RESET}`;
 
@@ -282,7 +278,6 @@ export default function antigravityQuota(pi: ExtensionAPI) {
           `${ANSI_DIM}   ` +
           `${HEADER_MODEL.padEnd(maxNameLen)}${GAP}` + 
           `${HEADER_USAGE.padEnd(USAGE_COL_WIDTH)}${GAP}` +
-          `${HEADER_LIMIT.padStart(maxLimitLen)}${GAP}` + // Right align limit
           `${HEADER_RESET.padStart(maxResetLen)}${ANSI_RESET}` // Right align reset time
         );
         lines.push(separator);
@@ -314,7 +309,6 @@ export default function antigravityQuota(pi: ExtensionAPI) {
               `${m.icon} ` +
               `${m.name.padEnd(maxNameLen)}${GAP}` +
               `${usageContent}${GAP}` +
-              `${m.limit.padStart(maxLimitLen)}${GAP}` +
               `${resetColor}${m.resetTime.padStart(maxResetLen)}${ANSI_RESET}`
             );
           }
