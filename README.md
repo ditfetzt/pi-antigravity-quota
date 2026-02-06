@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="banner.webp" alt="pi-antigravity-quota" width="100%">
+  <img src="banner.webp" alt="pi-antigravity-quota" width="600">
 </p>
 
 <div align="center">
