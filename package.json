@@ -1,6 +1,6 @@
 {
   "name": "pi-antigravity-quota",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Pi extension to check Google Cloud Code (Antigravity) model quotas.",
   "type": "module",
   "main": "index.ts",
